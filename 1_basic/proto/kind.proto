@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+package basic;
+
+service OrderManagement {
+  //一元RPC模式
+  rpc getOrder(google.protobuf.StringValue) returns (Order);
+
+  //服务器端流RPC模式
+  rpc searchOrders(google.protobuf.StringValue) returns (stream Order);
+
+  //客户端流RPC模式
+  rpc updateOrders(stream Order) returns (google.protobuf.StringValue);
+
+  //双向流RPC模式
+  rpc processOrders(stream google.protobuf.StringValue)returns (stream google.protobuf.StringValue);
+
+}
+
+message Order {
+  string id = 1;
+  repeated string items = 2;
+  string description = 3;
+  float price = 4;
+  string destination = 5;
+}
+
+
+message ProductID {
+  string value = 1;  // pb中字段需要指定顺序 即字段索引
+  int32 price = 2 ;
+  repeated string labels = 3;
+}

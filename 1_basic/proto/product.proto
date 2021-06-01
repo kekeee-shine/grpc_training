@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+package basic;
+
+option go_package = 'github.com/kekeee-shine/grpc_training/1_basic/proto';
+
+service ProductInfo {
+  rpc addProduct(Product) returns (ProductID);
+  rpc getProduct(ProductID) returns (Product);
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message ProductID {
+  string value = 1;
+}
+
+message AAAA{
+  google.protobuf.StringValue aa = 1;
+}
