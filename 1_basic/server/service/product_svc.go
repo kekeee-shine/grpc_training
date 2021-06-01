@@ -12,7 +12,7 @@ import (
 type Server struct {
 	productMap map[string]*pb.Product
 	// UnimplementedProductInfoServer has implemented all mtd of service.ProductInfoServer
-	pb.UnimplementedProductInfoServer
+	pb.ProductInfoServer
 }
 
 func NewServer() *Server {
