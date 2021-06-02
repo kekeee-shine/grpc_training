@@ -4,7 +4,8 @@ import (
 	"context"
 	pb "github.com/kekeee-shine/grpc_training/2_interceptors/proto"
 	"google.golang.org/grpc"
-	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
+	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
+	"io"
 	"log"
 	"os"
 	"time"
@@ -27,16 +28,35 @@ func main() {
 		}
 	}(conn)
 
-	c := pb.NewOrderManagementClient(conn)
+	client := pb.NewOrderManagementClient(conn)
+	clientDeadline := time.Now().Add(time.Duration(200 * time.Second))
+	ctx, cancel := context.WithDeadline(context.Background(), clientDeadline)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	//ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.GetOrder(ctx, &wrapperspb.StringValue{Value: "101"})
-	if err != nil {
-		log.Fatalf("Could not ger order: %v", err)
 
+	// unary request demo
+	//r, err := client.GetOrder(ctx, &wrapper.StringValue{Value: "101"})
+	//if err != nil {
+	//	log.Fatalf("Could not ger order: %v", err)
+	//
+	//}
+	//log.Printf("GerOrder successfully %v", r)
+
+	// stream request demo
+	searchStream, _ := client.SearchOrders(ctx, &wrapper.StringValue{Value: "Google"})
+	for {
+		searchOrder, err := searchStream.Recv()
+
+		if err == io.EOF {
+			log.Print("EOF")
+			break
+		}
+
+		if err == nil {
+			log.Print("Search Result : ", searchOrder)
+		}
 	}
-	log.Printf("GerOrder successfully %v", r)
 
 	//product, err := c.GetProduct(ctx, &pb.ProductID{Value: r.Value})
 	//if err != nil {

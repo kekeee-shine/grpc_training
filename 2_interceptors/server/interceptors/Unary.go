@@ -36,7 +36,7 @@ func OrderUnaryServerInterceptor2(ctx context.Context, req interface{}, info *gr
 	log.Println("this is a get request, pass")
 	// Invoking the handler to complete the normal execution of a unary RPC.
 	m, err := handler(ctx, req)
-	log.Println("------- [Server Interceptor 1] End ")
+	log.Println("------- [Server Interceptor 2] End ")
 	return m, err
 }
 
