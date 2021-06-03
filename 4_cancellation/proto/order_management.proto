@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/wrappers.proto";
+
+option go_package = 'github.com/kekeee-shine/grpc_training/3_deadlines/proto';
+
+service OrderManagement {
+  //一元RPC模式
+  rpc getOrder(google.protobuf.StringValue) returns (Order);
+
+  //服务器端流RPC模式
+  rpc searchOrders(google.protobuf.StringValue) returns (stream Order);
+
+  //客户端流RPC模式
+  rpc updateOrders(stream Order) returns (google.protobuf.StringValue);
+
+  //双向流RPC模式
+  rpc processOrders(stream google.protobuf.StringValue)returns (stream google.protobuf.StringValue);
+
+}
+
+message Order {
+  string id = 1;
+  repeated string items = 2;
+  string description = 3;
+  float price = 4;
+  string destination = 5;
+}
