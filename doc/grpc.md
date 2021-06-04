@@ -4,7 +4,7 @@
 
   当为现代云原生应用程序和微服务实现同步的请求–响应风格的通信时，最常见和最传统的方式就是将它们构建为 RESTful 服务。也就是说，将应用程序或服务建模为一组资源，这些资源可以通过 HTTP 的网络调用进行访问和状态变更。但是，对大多数使用场景来说，使用 RESTful 服务来实现进程间通信显得过于笨重、低效并且易于出错。我们通常需要扩展性强、松耦合的进程间通信技术，该技术比 RESTful 服务更高效。这也就是 gRPC 的优势所在，gRPC 是构建分布式应用程序和微服务的现代进程间通信风格（本章稍后会对比 gRPC 和 RESTful 服务）。gRPC 主要采用同步的请求–响应风格进行通信，但在建立初始连接后，它完全可以以异步模式或流模式进行操作。
 
-![image-20210527133027474](C:\Users\u0037495\Desktop\grpc.assets\image-20210527133027474.png)
+![image-20210527133027474](\grpc.assets\image-20210527133027474.png)
 
 > 服务器端：
 
@@ -19,7 +19,7 @@
 
 ### gRPC的使用
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\c335c9631c270091.png)
+![img](\grpc.assets\c335c9631c270091.png)
 
 
 
@@ -235,7 +235,7 @@ message Order {
 
 ### gRPC 的底层原理
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\dd7c1a48de94d091.png)1.客户端进程通过生成的存根调用 getProduct 方法。
+![img](\grpc.assets\dd7c1a48de94d091.png)1.客户端进程通过生成的存根调用 getProduct 方法。
 2.客户端存根使用已编码的消息创建 HTTP POST 请求。在 gRPC 中，所有的请求都是 HTTP POST 请求，并且 content-type 前缀为 application/grpc。要调用的远程方法（/ProductInfo/getProduct）是以单独的 HTTP 头信息的形式发送的。
 3.HTTP 请求消息通过网络发送到服务器端。
 4.当接收到消息后，服务器端检查消息头信息，从而确定需要调用的服务方法，然后将消息传递给服务器端骨架。
@@ -292,7 +292,7 @@ ex3:2^30(1000000 00000000 00000000 00000000)
 
 ​	将编码过程reverse即可
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\16f285fd3dd42565)
+![img](\grpc.assets\16f285fd3dd42565)
 
 由此可见 对于varint对2^28以内的数有效果，数值普遍超过的话使用fixed64
 
@@ -334,7 +334,7 @@ ex3:2^30(1000000 00000000 00000000 00000000)
 
 
 
-![image-20210531172736664](C:\Users\u0037495\Desktop\grpc.assets\image-20210531172736664.png)
+![image-20210531172736664](\grpc.assets\image-20210531172736664.png)
 
 对于线路类型为0，1，5的无需length，对于线路类型位2（string） 需要length
 
@@ -348,7 +348,7 @@ labels=["delicious","drink"];
 
 
 
-![image-20210531171613257](C:\Users\u0037495\Desktop\grpc.assets\image-20210531171613257.png)
+![image-20210531171613257](\grpc.assets\image-20210531171613257.png)
 
 
 
@@ -356,7 +356,7 @@ labels=["delicious","drink"];
 
 长度前缀分帧是指在写入消息本身之前，写入长度信息，来表明每条消息的大小。如图 4-4 所示，已编码的二进制消息前面分配了 4 字节来指明消息的大小。在 gRPC 通信中，每条消息都有额外的 4 字节用来设置其大小。消息大小是一个有限的数字，为其分配 4 字节来表示消息的大小，也就意味着 gRPC 通信可以处理大小不超过 4GB 的所有消息。
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\9ec23a8cefb96565.png)
+![img](\grpc.assets\9ec23a8cefb96565.png)
 
 
 
@@ -374,9 +374,9 @@ labels=["delicious","drink"];
 
 
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\03c4458d38f22386.png)
+![img](\grpc.assets\03c4458d38f22386.png)
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\d49971b9635dbc40.png)
+![img](\grpc.assets\d49971b9635dbc40.png)
 
 
 
@@ -384,19 +384,19 @@ labels=["delicious","drink"];
 
 1. 一元 RPC 模式
 
-   ![img](C:\Users\u0037495\Desktop\grpc.assets\701fe421d15b2bbb.png)
+   ![img](\grpc.assets\701fe421d15b2bbb.png)
 
 2. 服务器端流 RPC 模式
 
-   ![img](C:\Users\u0037495\Desktop\grpc.assets\bed7fa28f93865cd.png)
+   ![img](\grpc.assets\bed7fa28f93865cd.png)
 
 3. 客户端流 RPC 模式
 
-   ![img](C:\Users\u0037495\Desktop\grpc.assets\ca799bd46d965a63.png)
+   ![img](\grpc.assets\ca799bd46d965a63.png)
 
 4. 双向流 RPC 模式
 
-   ![img](C:\Users\u0037495\Desktop\grpc.assets\cf438c762fab2b9d.png)
+   ![img](\grpc.assets\cf438c762fab2b9d.png)
 
 ### gRPC高级进阶
 
@@ -481,7 +481,7 @@ func (s *Server) Serve(lis net.Listener) {
 
 #### 服务端拦截器
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\925d150ab9f3e06a.png)
+![img](\grpc.assets\925d150ab9f3e06a.png)
 
 ##### UnaryServerInterceptor工作流程
 
@@ -693,7 +693,7 @@ func _OrderManagement_GetOrder_Handler(srv interface{}, ctx context.Context, dec
 
 `interceptor`为空直接调用GetOrder方法，不为空先调用`Server.opts.unaryInt`处理请求。前面已经介绍过`Server.opts.unaryInt = chainedInt`，`Server.opts.unaryInt`会依次调用拦截器，最后才调用GetOrder方法
 
-![image-20210603132652350](C:\Users\u0037495\Desktop\grpc.assets\image-20210603132652350.png)
+![image-20210603132652350](\grpc.assets\image-20210603132652350.png)
 
 
 
@@ -763,7 +763,7 @@ type ServerStream interface {
 
 
 
-![image-20210603134113770](C:\Users\u0037495\Desktop\grpc.assets\image-20210603134113770.png)
+![image-20210603134113770](\grpc.assets\image-20210603134113770.png)
 
 `grpc/stream.go` 的[RecvMsg](https://github.com/grpc/grpc-go/blob/v1.38.0/stream.go#L1513)/[SendMsg](https://github.com/grpc/grpc-go/blob/v1.38.0/stream.go#L1453)
 
@@ -781,7 +781,7 @@ conn, err := grpc.Dial(address, grpc.WithInsecure(),
    grpc.WithStreamInterceptor(clientStreamInterceptor))
 ```
 
-![img](C:\Users\u0037495\Desktop\grpc.assets\303119cd9e3c40da.png)
+![img](\grpc.assets\303119cd9e3c40da.png)
 
 
 
@@ -805,3 +805,170 @@ context.WithCancel(context.Background())
 ```
 
 > 需要注意的是，客户端还是需要根据服务端取消后的返回做流程控制，不然会影响正常流程。
+
+
+
+#### [错误码](https://github.com/grpc/grpc-go/blob/v1.38.0/codes.go#L29)
+
+| 状态名                          | 值   | 中文解释                         |
+| ------------------------------- | ---- | -------------------------------- |
+| GRPC_STATUS_OK                  | 0    | 成功                             |
+| GRPC_STATUS_CANCELLED           | 1    | 操作被取消                       |
+| GRPC_STATUS_UNKNOWN             | 2    | 未知错误                         |
+| GRPC_STATUS_INVALID_ARGUMENT    | 3    | 客户端指定了非法参数             |
+| GRPC_STATUS_DEADLINE_EXCEEDED   | 4    | 在操作完成前，就已超过了截止时间 |
+| GRPC_STATUS_NOT_FOUND           | 5    | 某些请求实体没有找到             |
+| GRPC_STATUS_ALREADY_EXISTS      | 6    | 客户端试图创建的实体已存在       |
+| GRPC_STATUS_PERMISSION_DENIED   | 7    | 调用者没有权限执行特定的操作     |
+| GRPC_STATUS_RESOURCE_EXHAUSTED  | 8    | 某些资源已被耗尽                 |
+| GRPC_STATUS_FAILED_PRECONDITION | 9    | 操作被拒绝                       |
+| GRPC_STATUS_ABORTED             | 10   | 操作被中止                       |
+| GRPC_STATUS_OUT_OF_RANGE        | 11   | 超出范围                         |
+| GRPC_STATUS_UNIMPLEMENTED       | 12   | 服务方法未实现                   |
+| GRPC_STATUS_INTERNAL            | 13   | 内部错误                         |
+| GRPC_STATUS_UNAVAILABLE         | 14   | 服务不可达                       |
+| GRPC_STATUS_DATA_LOSS           | 15   | 不可恢复的数据丢失或损坏         |
+| GRPC_STATUS_UNAUTHENTICATED     | 16   | 认证失败                         |
+
+#### 多路复用
+
+gRPC 允许在同一个 gRPC 服务器端上运行多个 gRPC 服务，也允许多个客户端存根使用同一个 gRPC 客户端连接，这种功能叫作`多路复用（multiplexing）`。
+
+![img](grpc.assets/f4b06303e0751257.png)
+
+##### 服务端复用
+
+```go
+func main() {
+	...
+	s := grpc.NewServer()
+
+	// 在gRPC orderMgtServer上注册订单管理服务
+	pb.RegisterOrderManagementServer(s, svc.NewOrderServer())
+
+	// 在gRPC HelloServer上注册问候服务
+	pb.RegisterHelloServer(s, svc.NewHelloServer())
+
+	...
+}
+
+```
+
+
+
+##### 客户端请求
+
+```go
+func main() {
+   conn, err := grpc.Dial(address, grpc.WithInsecure())
+	...
+   // 将订单服务客户端绑定至从tcp连接中
+   orderClient := pb.NewOrderManagementClient(conn)
+
+   // 将问候服务客户端绑定至从tcp连接中
+   helloClient := pb.NewHelloClient(conn)
+	...	
+}
+```
+
+在微服务架构中，gRPC 多路复用的一个强大的用途就是在同一个服务器端进程中托管同一个服务的多个主版本。
+
+#### 元数据
+
+##### 客户端
+
+```go
+func main() {
+	
+    // 实例metadata
+	md := metadata.Pairs("cst_key1", "cst_value1",
+		"client_time", time.Now().Format(time.Stamp),
+		"server_time", "")
+    // 创建含有metadata的上下文 本质是一个context.WithValue（）
+	mdCtx := metadata.NewOutgoingContext(context.Background(), md)
+	
+    // append
+	metadata.AppendToOutgoingContext(mdCtx, "cst_key2", "cst_value2", "cst_key3", "cst_value3")
+
+	// 如需设置超时时间等
+	//ctx,_:= context.WithTimeout(mdCtx, time.Second*10)
+	var header, trailer metadata.MD
+
+	// unary request demo::GetOrder
+	{
+		r, err := client.GetOrder(mdCtx, &wrapper.StringValue{Value: "101"}, grpc.Header(&header), grpc.Trailer(&trailer))
+		if err != nil {
+			log.Fatalf("Could not ger order: %v", err)
+
+		}
+		log.Printf("GerOrder successfully %v", r)
+
+		...
+		// 接收header返回中server_time元数据
+		if sTimeMap, ok := header["server_time"]; ok {
+			log.Printf("kv from header['server_time']:\n")
+			for k, v := range sTimeMap {
+				log.Printf("%d. %s\n", k, v)
+			}
+		} else {
+			log.Printf("No server_time in header")
+		}
+		
+        // 接收trailer返回中元数据
+		for _, trailerMap := range trailer {
+			for i, value := range trailerMap {
+				log.Printf("%d. %s\n", i, value)
+			}
+		}
+	}
+
+}
+
+```
+
+
+
+
+
+##### 服务端
+
+```go
+//	GetOrder implements proto.OrderManagementServer
+func (s Server) GetOrder(ctx context.Context, value *wrapper.StringValue) (*pb.Order, error) {
+
+	time.Sleep(time.Second * 5)
+	// reading from context
+	if mdCtx, ok := metadata.FromIncomingContext(ctx); ok {
+		if cTimeMap, ok := mdCtx["client_time"]; ok {
+			for k, v := range cTimeMap {
+				fmt.Printf("====> Metadata client_time %d. %s\n", k, v)
+			}
+		}
+	} else {
+		fmt.Printf("====> Metadata ")
+	}
+	// new metadata for header 
+	header := metadata.New(map[string]string{"server_time": time.Now().Format(time.Stamp)})
+
+	// send header
+	err := grpc.SendHeader(ctx, header)
+	if err != nil {
+		return nil, err
+	}
+
+	// new metadata for trailer 
+	trailer := metadata.New(map[string]string{"trailer": ".......trailer........"})
+
+	// send trailer
+	err = grpc.SetTrailer(ctx, trailer)
+	if err != nil {
+		return nil, err
+	}
+
+	...
+}				
+```
+
+在服务端发送元数据有两种方式，[grpc.SendHeader](https://github.com/grpc/grpc-go/blob/v1.38.0/server.go#L1820) 和[grpc.SetTrailer](https://github.com/grpc/grpc-go/blob/v1.38.0/server.go#L1833) ，stream形式中[serverStream.SendHeader](https://github.com/grpc/grpc-go/blob/v1.38.0/stream.go#L1434) 和[serverStream.SetTrailer](https://github.com/grpc/grpc-go/blob/v1.38.0/stream.go#L1446) 。
+
+需要注意的是，这两种方法在一元rpc 中没有区别，trailer和header会一起返回客户端，但是在stream中trailer是所有消息结束后才返回，使用过程中需要具体区分。
