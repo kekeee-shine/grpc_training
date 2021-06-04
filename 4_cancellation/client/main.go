@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/kekeee-shine/grpc_training/3_deadlines/proto"
+	pb "github.com/kekeee-shine/grpc_training/4_cancellation/proto"
 	"google.golang.org/grpc"
 	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
 	"io"

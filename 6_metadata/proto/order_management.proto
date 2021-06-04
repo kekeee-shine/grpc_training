@@ -4,7 +4,7 @@ package proto;
 
 import "google/protobuf/wrappers.proto";
 
-option go_package = 'github.com/kekeee-shine/grpc_training/4_cancellation/proto';
+option go_package = 'github.com/kekeee-shine/grpc_training/6_metadata/proto';
 
 service OrderManagement {
   //一元RPC模式

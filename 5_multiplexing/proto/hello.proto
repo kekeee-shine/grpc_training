@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/wrappers.proto";
+
+option go_package = 'github.com/kekeee-shine/grpc_training/5_multiplexing/proto';
+
+service hello {
+
+  rpc SayHello(google.protobuf.StringValue) returns (google.protobuf.StringValue);
+}
