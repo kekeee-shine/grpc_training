@@ -18,8 +18,10 @@ func (w *wrappedStream) RecvMsg(m interface{}) error {
 }
 
 func (w *wrappedStream) SendMsg(m interface{}) error {
-	log.Printf("====== [Server Stream Interceptor Wrapper] Send a message (Type: %T) at %v", m, time.Now().Format(time.RFC3339))
-	return w.ServerStream.SendMsg(m)
+	log.Printf("====== 开始[Server Stream Interceptor Wrapper] 111Send a message (Type: %T) at %v", m, time.Now().Format(time.RFC3339))
+	err := w.ServerStream.SendMsg(m)
+	log.Printf("====== 结束[Server Stream Interceptor Wrapper] 111Send a message (Type: %T) at %v", m, time.Now().Format(time.RFC3339))
+	return err
 }
 
 func newWrappedStream(s grpc.ServerStream) grpc.ServerStream {
